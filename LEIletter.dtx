@@ -1,0 +1,1468 @@
+% \iffalse meta-comment
+% !TEX program  = pdfLaTeX
+%<*internal>
+\iffalse
+%</internal>
+%<*readme>
+----------------------------------------------------------------
+LEIletter --- letter class for Leiden University
+E-mail: m.t.kreutzer@science.leidenuniv.nl
+Released under the LaTeX Project Public License v1.3c or later
+See http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+In its communications, Leiden University aims to create a clear 
+and recognisable brand, which is why it is important that our house 
+style is applied consistently. The current packages allows for 
+letter that comply with the standard set out at 
+https://huisstijl.leidenuniv.nl/nl/corporate/briefpapier-zetaanwijzingen/
+%</readme>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+----------------------------------------------------------------
+LEIletter --- letter class for Leiden University
+E-mail: m.t.kreutzer@science.leidenuniv.nl
+Released under the LaTeX Project Public License v1.3c or later
+See http://www.latex-project.org/lppl.txt
+----------------------------------------------------------------
+
+\endpreamble
+\postamble
+
+Copyright (C) 2009 by Michiel Kreutzer <m.t.kreutzer@science.leidenuniv.nl>
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+http://www.latex-project.org/lppl.txt
+
+This work is "maintained" (as per LPPL maintenance status) by
+Michiel Kreutzer.
+
+This work consists of the file  LEIletter.dtx and
+                                leiden-logo.pdf
+and the derived files           LEIletter.ins,
+                                LEIletter.pdf,
+                                LEIletter.cls,
+                                leiletter-voorbeeld.tex and  
+                                medewerker.lco
+
+\endpostamble
+\usedir{tex/latex/leiletter}
+\generate{
+  \file{\jobname.cls}{\from{\jobname.dtx}{class}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\usedir{source/latex/LEIletter}
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+  \file{medewerker.lco}{\from{\jobname.dtx}{medewerker}}
+  \file{leiletter-voorbeeld.tex}{\from{\jobname.dtx}{example}}
+  \file{leiletter-gridtest.tex}{\from{\jobname.dtx}{gridtest}}
+}
+\nopreamble\nopostamble
+\usedir{doc/latex/LEIletter}
+\generate{
+  \file{README.txt}{\from{\jobname.dtx}{readme}}
+}
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+% \def\fileversion{1.2}
+% \def\filedate{2019/11/7}
+%<*class>
+\def\fileversion{1.2}
+\def\filedate{2019/11/7}
+%
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesClass{LEIletter}[\filedate\space\fileversion\space  Michiel Kreutzer's letter class based on UL huisstijl in  https://huisstijl.leidenuniv.nl/nl/corporate/briefpapier-zetaanwijzingen/]
+%</class>
+%<*driver>
+\documentclass{ltxdoc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[numbered]{hypdoc}
+\newenvironment{decl}[1][]%
+    {\par\small\addvspace{4.5ex plus 1ex}%
+     \vskip -\parskip
+     \ifx\relax#1\relax
+        \def\@decl@date{}%
+     \else
+        \def\@decl@date{\NEWfeature{#1}}%
+     \fi
+     \noindent\hspace{-\leftmargini}%
+     \begin{tabular}{|l|}\hline\ignorespaces}%
+    {\\\hline\end{tabular}\nobreak\@decl@date\par\nobreak
+     \vspace{2.3ex}\vskip -\parskip}
+\EnableCrossrefs
+\CodelineIndex
+\RecordChanges
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+%
+%
+%\title{^^A
+%  \textsf{LEIletter} --- letter class for Leiden University\thanks{^^A
+%    This file describes version \fileversion, last revised \filedate.^^A
+%  }^^A
+%}
+%\author{^^A
+%  Michiel Kreutzer\thanks{E-mail: m.t.kreutzer@science.leidenuniv.nl}^^A
+%}
+%\date{Released \filedate}
+%
+%\maketitle
+%
+% \begin{abstract}
+% This package is a \LaTeX\  implementation of the business letter formatting
+% that is used at Leiden University, using the institute graphic identity as
+% specified on |www.leidenuniv.nl|.
+% \end{abstract}
+%
+%\changes{v1.0}{2019/10/26}{First public release}
+%
+% \section{Introduction}
+%
+% This package implements the graphic identity of Universiteit Leiden for letters.
+% Using these class files will make it easy for you to make and keep
+% your letters compliant to this version and future
+% versions of the graphic identity (``huisstijl'') of the university.
+%
+% If you think (1) that there is an error in compliancy with the house
+% style, (2) that there is a feature missing in this class file, or
+% (3) that there's a bug in this class file, 
+% please, contact me through e-mail (|m.t.kreutzer@science.leidenuniv.nl|)
+% about the issue.
+% I'll provide you with an answer and if (and as soon as) possible
+% with a solution to the problem you spotted.  
+%
+% \section{Synopsis}
+% The |LEIletter| class is an extension of the standard KOMA-script letter
+% class |scrlttr2|. It is intended to be used for writing business
+% letters. It is compliant to the house style and allows for using
+% windowed envelopes of the DL format, with right-aligned window. 
+%
+% The class requires and uses the following packages that are part of most 
+% modern \LaTeX{} distributions: 
+% \begin{itemize}
+% \item the |graphicx| package to include the university logo.
+% \item the |ifthen| package to process user options
+% \item the |array| package to typeset a table on the front page
+% \item the |babel| package to offer optional support for english
+% \item the |regged2e| package for better left-justified text
+% \item the |hyperref| package for formatting of hyperreferences
+% \item the |textcase| package for better small capitals
+% \item the |microtype| package for improved microtypography
+% \item the |scrlayer-scrpage| package (part of KOMA-script)
+% \item the |geometry| package for setting page margins
+% \item the |setspace| package for setting interline distance
+% \item the |lipsum| package for typesetting an example letter
+% \end{itemize}
+% and most importantly,
+% \begin{itemize}
+%   \item the |MinionPro| package and the Minion Pro fonts.
+% \end{itemize}
+% So make sure these packages are available to your
+% \LaTeX{} compiler. The Minion fonts are commercial but easily 
+% available: I was able to download the full set from 
+%
+% |https://www.wfonts.com/font/minion-pro|.  
+% 
+% Get a copy of the full font, preferably, and work 
+% through the installation instruction in the |MinionPro| ReadMe file
+% on CTAN.
+% 
+% \section{Minimal Example}
+% 
+%
+% \begin{verbatim}
+% \documentclass[author=medewerker,faculty=fwn]{leiletter}
+% \leilnumber{MEdW/123}
+% \leilyourref{12 april 2019}
+% \leilsubject{Brieven Schrijven in Huisstijl met Latex.}
+% \usepackage{lipsum}
+% \begin{document}
+% \begin{letter}{%
+%     College van Bestuur\newline%
+%     Universiteit van Leiden\newline%
+%     Rapenburg 70, Leiden
+% }
+% \opening{Geacht College,}
+% \lipsum[1-10]
+% \closing{Hoogachtend,}
+% \end{letter}
+% \end{document}
+% \end{verbatim}
+% 
+% \section{Usage}
+% \begin{decl}
+% \cs{documentclass}\oarg{options}|{LEIletter}|
+% \end{decl}
+% 
+% \subsection{Language}
+%
+% \DescribeMacro{lang=<language>, dutch, english}
+% The default language of the letters is Dutch, and without user input Dutch 
+% will be selected. By providing option |lang=english| or simply by providing 
+% the option |english|, the language will switch to english. Although not required, 
+% the user can specify |dutch| or |lang=dutch| as an option. By switching to 
+% English, all class-generated output will be in English and the document language
+% switches to English, relevant for hyphenation and other language-specific 
+% typesetting aspects. 
+% 
+% \subsection{Faculty}
+%
+% \DescribeMacro{faculty=<faculty>}
+% The house style indicates that the name of the faculty is printed at the top
+% right of the page, and below it the visiting address and postal address of the 
+% faculty is given. These addresses were taken from the university website for 
+% each of the faculties, and by specifying the faculty, the correct name and 
+% address will be printed automatically. Note that it is still up to the user 
+% to specify the name of the building. If needed, the visiting address and other 
+% address details can be overwritten. 
+%
+% The following faculties are supported: |fwn| for Faculty of Science, |law| for 
+% Faculty of Law, |med| for Faculty of Medicine, |fgw| for Faculty of Humanities, 
+% |fsw| for Faculty of Social and Behavioural Sciences, |arch| for Faculty of 
+% Archeology, |gga| for Faculty of Governance and Global Affairs. 
+%
+% If no value is specified, the letter defaults to |faculty=fwn|. 
+%
+% \subsection{Stationary with pre-printed logo}
+%
+% \DescribeMacro{briefdrager}
+% By default, the class assumes that the letter will be printed on plain paper
+% or by email. In that case, the logo of the university is included in the top
+% left part of the paper. If stationary paper with pre-printed logo, called 
+% `briefdrager' in the specification of the house style, is used, then the logo
+% should not be printed. By specifying the option |briefdrager|, the logo is 
+% suppressed. 
+%
+% \subsection{Letterhead information}
+%
+% \begin{decl}
+% \cs{leilnumber}\marg{letter number} \\
+% \cs{leilyourref}\marg{correspondence reference} \\
+% \cs{leilsubject}\marg{letter subject}
+% \end{decl}
+%
+% At the top of the letter, in the preamble before |\begin{document}|, these there
+% items should be specified for inclusion in the reference line, along with the 
+% date and other sender information. Note that the headings for the reference line
+% can also be changed by the user -- see the code documentation for details. 
+%
+% \subsection{Loading of sender information}
+%
+% \DescribeMacro{author=<name>}
+% The class offers the option to load a file that contains sender-information. 
+% This file could be stored in a location that \LaTeX is able to find, such that 
+% the same information need not be specified anew for each letter. See the example
+% file |medewerker.lco| and the code documentation to set up such a file. To load 
+% the file, the option |author=<name>| specifies that the file |<name>.lco| is
+% loaded. 
+%
+% \begin{decl}
+% \cs{leiltitle}\marg{academic titles} \\
+% \cs{leilfirstname}\marg{sender first name} \\
+% \cs{leillastname}\marg{sender last name} \\
+% \cs{leilemail}\marg{sender email} \\
+% \cs{leildirectphone}\marg{sender direct-call phone number} \\
+% \cs{leilcontact}\marg{sender representative} \\
+% \cs{leiljobtitle}\marg{sender job title} \\
+% \cs{leilbuilding}\marg{sender office building} \\
+% \cs{leilunit}\marg{sender organisational unit}
+% \end{decl}
+%
+% These items can be specified for inclusion in the letterhead. Note that the 
+% information for the letterhead line can also be set by the user by including 
+% the relevant commands in the preamble. 
+%
+% \subsection{Structure of a letter}
+%
+% \begin{decl}
+% \cs{begin}|{letter}|\marg{address}\ldots\cs{end}|{letter}| \\
+% \cs{opening}\marg{salutation} \\
+% \cs{closing}\marg{salutation} \\
+% \cs{setkomavar}|{signature}|\marg{sender name and signature}
+% \end{decl}
+%
+% The structure of the letter is an environment |letter|, where the opening
+% statement includes the addresss of the recipient of the letter, on multiple
+% lines separated by |\newline|. Opening and closing salutations have their own
+% commands that take care of space before and after. All of this is taken from 
+% the KOMAscript letter class that forms the basis of this class. This also holds
+% for the signature. If the right user information is provided, then the signature
+% defaults to title, first and last name of sender, and the job title on the line
+% below. 
+%
+% If you want to change this, you can use cs{setkomavar}, for instance to
+% include a scanned signature as follows 
+% \begin{verbatim}
+% \newcommand{\mSignature}{
+%	\makebox[0pt][l]{\raisebox{-2cm}[0pt][2cm]%
+%      {\hspace{-1.5cm}\includegraphics{krabbel.pdf}}}
+% }
+% ...
+% \closing{\mSignature \unskip Best regards}
+%\end{verbatim}	
+% 
+% for a scanned signature that is about 2 cm high.
+%
+%
+%\StopEventually{^^A
+%  \PrintChanges
+%  \PrintIndex
+%}
+%
+%
+% \section{documentclass-code}
+%
+% \subsection{option handling}
+%
+% We begin by setting up the processing of options using the |kvoptions| package,
+% using |leil| as family name for all options and |leil@| as prefix for all tags. 
+% The string option |lang| defaults to Dutch, |paper| defaults to A4, and |faculty|
+% defaults to the Faculty of Science. the |\setkeys| command sets Dutch on A4 paper
+% as default options. 
+%
+%    \begin{macrocode}
+%<*class>
+%    \end{macrocode}
+%    \begin{macrocode}
+\RequirePackage{ifthen}
+\RequirePackage{kvoptions}
+\SetupKeyvalOptions{family=leil, prefix=leil@}
+\DeclareBoolOption{dutch}
+\DeclareBoolOption{english}
+\DeclareBoolOption{briefdrager}
+\DeclareStringOption[dutch]{lang} 
+\DeclareStringOption[fwn]{faculty} 
+\DeclareStringOption{author} 
+\setkeys{leil}{dutch}
+\ProcessKeyvalOptions{leil}
+%    \end{macrocode}
+%
+%  Set the |leil@lang| variable to english if the option |english| is given.  
+%    \begin{macrocode}
+\ifthenelse{\boolean{leil@english}}{\renewcommand*{\leil@lang}{english}}{}
+%    \end{macrocode}
+%
+%  The user-specified options go through some rudimentary error checking. The 
+%  language option is processed such that specifying options other than Dutch or 
+%  English defaults to Dutch. The faculty option is switched back to |fwn| if 
+%  an unknown value is specified. 
+% 
+%    \begin{macrocode}
+\ifthenelse{\equal{\leil@lang}{dutch}\OR\equal{\leil@lang}{english}}{\relax}%
+    {\PackageWarningNoLine{leiletter}{Only languages supported are Dutch and English. 
+     Defaulting to Dutch now, you specified \leil@lang}}	
+\ifthenelse{\equal{\leil@faculty}{fwn}\OR\equal{\leil@faculty}{fgw}\OR
+            \equal{\leil@faculty}{fsw}\OR\equal{\leil@faculty}{gga}\OR
+            \equal{\leil@faculty}{med}\OR\equal{\leil@faculty}{law}\OR
+            \equal{\leil@faculty}{arch}}{\relax}%
+    {\PackageWarningNoLine{leiletter}{You specified illegal input for the faculty. 
+     Switching back to fwn, you specified \leil@faculty}
+     \renewcommand*{\leil@faculty}{fwn}}	
+%    \end{macrocode}
+%
+%  This concludes the specification of package options. 
+%
+% \subsection{Parent Class and Packages}
+%
+% The |LEIletter| class builds upon the KOMA-script letter class |scrlttr2|, 
+% that is loaded here. The |scrlayer-scrpage| package is also part of KOMA-script
+% and allows for placement layers of blocks of material (text, images) on pages. 
+% These layers offer more flexibility than the |scrlttr2| package and allow for 
+% much cleaner programming. 
+% 
+%    \begin{macrocode}
+\LoadClass{scrlttr2}
+\KOMAoptions{
+  fontsize=11pt,
+  paper=a4,
+  usegeometry=true,
+  parskip=full,
+  pagenumber=false,
+  enlargefirstpage=on,    % More space on first page
+  fromrule=off,           % No Rule after sender name in letter head
+  addrfield=topaligned,   % Adress field for envelope with window
+  backaddress=off,         % Sender address in this window (use plain to remove rule)
+  refline=nodate,
+  foldmarks=on,           % Print foldmarks
+}
+\RequirePackage{scrlayer-scrpage}
+\pagestyle{scrheadings}
+%    \end{macrocode}
+%
+%  The |array| package is required to typeset the reference line (letter number, date, etc)
+%  in a tabular environment (well, mostly to tweak the spacing between rows). Babel is 
+%  loaded here (it is also loaded by scrlttr2) with the correct language switch. Hyperref 
+%  is included for typesetting of links without too much color. Note that this can be 
+%  overwritten by the user with an alternative |\hypersetup| command in the preamble. 
+% 
+% \changes{v1.2}{2019/11/7}{Added code from parskip.sty to remove parskip around headings
+% 							requires etoolbox.sty}
+%    \begin{macrocode}
+\RequirePackage{array}
+\RequirePackage{etoolbox}
+\RequirePackage[\leil@lang]{babel}
+\RequirePackage{hyperref}
+\hypersetup{colorlinks, breaklinks, urlcolor=black, linkcolor=black}
+%    \end{macrocode}
+%
+%  Letters are written left-justified. The package |ragged2e| handles this best. 
+% 
+%    \begin{macrocode}
+\RequirePackage{ragged2e}
+\RaggedRight
+%    \end{macrocode}
+%
+%  \begin{macro}{\spacedallcaps}
+%  The standard font for Leiden university is Minion. We use the |MinionPro| package 
+%  and assume that the full family is installed. The switch |opticals| specifies that
+%  slightly different shapes are used at different sizes. The |microtype| package does 
+%  small but noticable improvement to the typesetting of text. The |textcase| package 
+%  is needed for the specification of the two commands |\spacedallcaps| and 
+%  |\spacedlowsmallcaps|, both copied from the |classicthesis| package, that allow for 
+%  nicely spaced small caps. 
+% 
+%    \begin{macrocode}
+\RequirePackage{textcase}
+\RequirePackage{microtype}
+\RequirePackage[fullfamily,opticals]{MinionPro}
+\DeclareRobustCommand{\spacedallcaps}[1]{\textssc{\MakeTextUppercase{#1}}}
+\DeclareRobustCommand{\spacedlowsmallcaps}[1]{\textssc{\MakeTextLowercase{#1}}}
+%    \end{macrocode}
+% \end{macro}
+%
+% The geometry of the page (i.e. the margins) are prescribed in the house style: 
+% left margin is 24 mm, bottom margin is 44pt, no footer. The top margin specified
+% here is for the pages after the first page - on the first page  the start of the 
+% body text is dictated by the location of the reference line. 
+%
+%    \begin{macrocode}
+\RequirePackage[left=4.8cm,right=2.2cm,top=142pt,bottom=44pt,foot=2em]{geometry}
+%    \end{macrocode}
+% 
+%  Document layout: Here we set the location of the address window using 
+% |toaddrhpos|, |toaddrvpos| and |toaddrwidth|, kill spacing for back-address 
+% (which we do not use), and space for the reference line (that we construct
+% differently). We need to set |refvpos| to make sure the text starts at the 
+% correct height on the first page. 
+%
+%    \begin{macrocode}
+\setplength{toaddrhpos}{24mm}
+\setplength{toaddrvpos}{146pt}
+\setplength{toaddrwidth}{72mm}
+\setplength{toaddrheight}{77pt}
+\setplength{backaddrheight}{0pt}
+\setplength{subjectaftervskip}{0pt}
+\setplength{subjectbeforevskip}{0pt}
+\setplength{refaftervskip}{0pt}
+\setplength{sigbeforevskip}{3.0\baselineskip}
+\setplength{refvpos}{350pt}
+\setlength\parindent{0pt}
+%    \end{macrocode}
+%
+% 
+%  Formatting of the signature left justified, and use a colon for the enclosed
+%  documents. 
+%
+%    \begin{macrocode}
+\renewcommand*{\raggedsignature}{\raggedright}
+\setkomavar{enclseparator}{: }
+%    \end{macrocode}
+%
+%
+%  Line spacing: making text register onto a grid is a nightmare in \LaTeX. The following
+%  is mostly taken from the |grid| package. which is to incompatible with KOMA-script
+%  to just use as is. We begin with some preliminaries, defining the grid to be 14 points
+%  and setting the default font size to 11 pt. 
+% 
+%    \begin{macrocode}
+\def\leil@fontsize{11pt}
+\def\leil@baseline{14pt}
+%    \end{macrocode}
+%
+%  Next, we redefine the font sizes |normalsize| and |small| to have 14 pt leading and
+%  we set all the ``rubber'' lengths of latex to fixed multiples of 14 pt. We also set
+% |\parskip| to a full but single line. 
+% 
+%    \begin{macrocode}
+\renewcommand\normalsize{%
+   \baselineskip=\leil@baseline%
+   \@setfontsize\normalsize{\leil@fontsize}{\leil@baseline}%
+   \lineskip=0pt
+   \lineskiplimit=-\leil@fontsize%
+   \abovedisplayskip \baselineskip%
+   \abovedisplayshortskip .5\baselineskip%
+   \belowdisplayskip \abovedisplayskip
+   \belowdisplayshortskip \abovedisplayshortskip
+   \let\@listi\@listI}
+\renewcommand\small{%
+   \baselineskip=\leil@baseline%
+   \@setfontsize\normalsize{10pt}{\leil@baseline}%
+   \lineskip=0pt
+   \lineskiplimit=-\leil@fontsize%
+   \abovedisplayskip \baselineskip%
+   \abovedisplayshortskip .5\baselineskip%
+   \belowdisplayskip \abovedisplayskip
+   \belowdisplayshortskip \abovedisplayshortskip
+   \let\@listi\@listI}
+\normalsize
+\parskip \leil@baseline
+%    \end{macrocode}
+%
+%  Still working on sticking to the grid: the following code creates an enviroment
+%  |gridenv|, such that anything between |\begin{gridenv}| and |\end{gridenv}| takes
+%  up an integer multiple of |\baseline|, such that the text below registers again. 
+%  For details, consult the |grid| package on CTAN. 
+% 
+%    \begin{macrocode}
+\newdimen\floatunit
+\newskip\allfloats
+\setlength\floatunit{\the\baselineskip}
+\begingroup
+  \catcode`P=12
+  \catcode`T=12
+  \lowercase{
+    \def\x{\def\rem@decimal##1.##2PT{##1}}}
+  \expandafter\endgroup\x
+\def\strip@decimal{\expandafter\rem@decimal\the}
+\begingroup
+  \catcode`P=12
+  \catcode`T=12
+  \lowercase{
+    \def\y{\def\rem@dot##1.##2PT{##1##2}}}
+  \expandafter\endgroup\y
+\def\strip@dot{\expandafter\rem@dot\the}
+\newdimen\halfbaselineskip
+\halfbaselineskip=\floatunit
+\divide\halfbaselineskip by 2
+\newdimen\figboxht
+\newdimen\figboxdp
+\long\def\roundoff{\figboxht=\fight%
+    \advance\figboxht by \baselineskip%
+    \multiply\figboxht by 10%
+    \xdef\xbaselineskip{\strip@dot\baselineskip}%
+    \divide\figboxht by \xbaselineskip%
+    \xdef\mylines{\strip@decimal\figboxht}%
+    \figboxht=\baselineskip%
+    \multiply\figboxht by\mylines%
+    \advance\figboxht by -\fight%
+    \ifdim\the\figboxht>\the\halfbaselineskip%
+      \advance\figboxht by -\floatunit%
+    \else\fi%
+    }
+\long\def\fltroundoff{\figboxht=\fight%
+	\figboxdp=\figdp%
+	\addtolength{\figboxht}{\figdp}%
+	\addtolength{\figboxdp}{\fight}%
+	\typeout{figboxht is now (dp added) \the\figboxht}%
+    \advance\figboxht by \baselineskip%
+    \multiply\figboxht by 10%
+    \xdef\xbaselineskip{\strip@dot\baselineskip}%
+    \divide\figboxht by \xbaselineskip%
+    \xdef\mylines{\strip@decimal\figboxht}%
+    \figboxht=\baselineskip%
+    \multiply\figboxht by\mylines%
+    \advance\figboxht by -\figboxdp%
+    \ifdim\the\figboxht>\the\halfbaselineskip%
+      \advance\figboxht by -\floatunit%
+    \else\fi%
+    }
+\newenvironment{gridfltenv}
+         {\global\setbox0=\vbox\bgroup}
+         {\egroup%
+          \xdef\fight{\the\ht0}%
+		  \xdef\figdp{\the\dp0}%
+		      \typeout{figboxht starts at \fight, \figdp  is depth}
+          \fltroundoff%
+          \leavevmode\vadjust{\box0\vskip\figboxht}\hfil\break%
+         }
+\newenvironment{gridenv}
+         {\global\setbox0=\vbox\bgroup}
+         {\egroup%
+          \xdef\fight{\the\ht0}%
+          \roundoff%
+          \leavevmode%
+          \vadjust{\vskip0.5\figboxht%
+                   \box0%
+                   \vskip0.5\figboxht%
+                   }\hfil\break%%
+         }
+\jot=\baselineskip
+%    \end{macrocode}
+%
+% We also redefine the enumerate and itemize environments to 
+% make sure that the spacing between lists is correct. 
+% 
+%    \begin{macrocode}
+  \def\enumerate{%
+    \ifnum \@enumdepth >\thr@@\@toodeep\else
+      \advance\@enumdepth\@ne
+      \edef\@enumctr{enum\romannumeral\the\@enumdepth}%
+        \expandafter
+        \list
+          \csname label\@enumctr\endcsname
+          {\usecounter\@enumctr\def\makelabel##1{\hss\llap{##1}}%
+           \topsep\z@\partopsep\z@\parskip\z@\itemsep\z@%
+           \@outerparskip\z@\parsep\z@\@topsep\z@\@topsepadd\z@}%
+    \fi}
+  \def\itemize{%
+    \ifnum \@itemdepth >\thr@@\@toodeep\else
+      \advance\@itemdepth\@ne
+      \edef\@itemitem{labelitem\romannumeral\the\@itemdepth}%
+      \expandafter
+      \list
+        \csname\@itemitem\endcsname
+        {\def\makelabel##1{\hss\llap{##1}}%
+         \topsep\z@\partopsep\z@\parskip\z@\itemsep\z@%
+         \@outerparskip\z@\parsep\z@\@topsep\z@\@topsepadd\z@}%
+    \fi}
+%    \end{macrocode}
+%
+%  \subsection{Section Commands} 
+%
+%  The parent class |sxcrlttr2| does not have 
+%  section commands (the same holds for the standard \LaTeX\ |letter| class). 
+%  It may be needed in longer letters to have section
+%  and subsection commands. The code here does not allow for table of 
+%  contents to be constructed, but the spacing before and after the commands
+%  is sticking to the 14 pt grid. The code is lifted from |sections.lco|
+%  that is distributed by the authors of KOMA-script and adjusted using the 
+%  code from |grid.sty|. 
+%
+% 
+%    \begin{macrocode}
+\newcounter{section}
+\newcounter{subsection}[section]
+\newcounter{subsubsection}[subsection]
+\renewcommand*{\thesection}{\Alph{section}.}
+\renewcommand*{\thesubsection}{\Roman{subsection}.}
+\renewcommand*{\thesubsubsection}{\arabic{subsubsection}.}
+\renewcommand*{\p@subsection}{\thesection}
+\renewcommand*{\p@subsubsection}{\p@subsection\thesubsection}
+\let\size@section\normalsize
+\newcommand*{\scr@fnt@section}{\size@section}
+\newcommand*{\scr@fnt@subsection}{\size@section}
+\newcommand*{\scr@fnt@subsubsection}{\size@section}
+\newcommand*\sectfont{\normalcolor\bfseries}
+\newcommand*{\scr@fnt@disposition}{\sectfont}
+\aliaskomafont{sectioning}{disposition}
+\setcounter{secnumdepth}{4}
+\newcommand\section{\@startsection{section}{1}{\z@}%
+  {-0.999\baselineskip}%
+  {0.001\baselineskip}%
+  {\raggedsection\normalfont\usekomafont{disposition}\nobreak
+    \usekomafont{section}\nobreak}}
+\newcommand\subsection{\@startsection{subsection}{2}{\z@}%
+  {\baselineskip}%
+  {-0.35\baselineskip}%
+  {\bfseries\unskip}}
+\newcommand\subsubsection{\@startsection{subsubsection}{3}{\z@}%
+  {\baselineskip}%
+  {-.35\baselineskip}%
+  {\itshape\unskip}}
+\let\raggedsection\raggedright
+%
+%
+% \changes{v1.2}{2019/11/7}{Added code from parskip.sty to remove parskip around headings
+% 							requires etoolbox.sty}
+%
+\patchcmd\@startsection
+    {\addvspace\@tempskipa}
+    {\advance\@tempskipa-\parskip\addvspace\@tempskipa}
+    {}{\typeout{Couldn't patch \string\@startsection}}
+\patchcmd\@xsect
+    {\vskip\@tempskipa}
+    {\advance\@tempskipa-\parskip\vskip\@tempskipa}
+    {}{\typeout{Couldn't patch \string\@xsect}}
+%    \end{macrocode}
+%
+% 
+%    \begin{macrocode}
+%    \end{macrocode}
+%
+% 
+%    \begin{macrocode}
+%    \end{macrocode}
+%
+% 
+%    \begin{macrocode}
+%    \end{macrocode}
+%
+% \subsection{Faculty addresses}
+%
+% The faculty specified by the user is now used to set the sender address. we start by
+% initializing tags 
+%
+% \begin{macro}{\leil@poboxname}  
+%  The tag |\leil@poboxname| holds the word P.O.Box or the Dutch variant Postbus. 
+%    \begin{macrocode}
+\newcommand{\leil@facultypoboxname}{Postbus}
+\ifthenelse{\equal{\leil@lang}{english}}{\renewcommand{\leil@facultypoboxname}{P.O.~Box}}{}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leil@facultyname}  
+% The name of the faculty, initialize empty tag.
+%    \begin{macrocode}
+\newcommand{\leil@facultyname}{}
+%    \end{macrocode}
+% \end{macro}
+% 
+%
+% \begin{macro}{\leil@facultypobox}  
+% The P.O. Box of the faculty, initialize empty tag. 
+%    \begin{macrocode}
+\newcommand{\leil@facultypobox}{}
+%    \end{macrocode}
+% \end{macro}
+% 
+%
+% \begin{macro}{\leil@facultyaddress}  
+% The address of the faculty, initialize empty tag.
+%    \begin{macrocode}
+\newcommand{\leil@facultyaddress}{}
+%    \end{macrocode}
+% \end{macro}
+% 
+%
+% \begin{macro}{\leil@facultyphone}  
+% The phone number of the faculty, initialize empty tag.
+%    \begin{macrocode}
+\newcommand{\leil@facultyphone}{}
+%    \end{macrocode}
+% \end{macro}
+%
+% With the tags initialized, we process the value of |\leil@faculty| to 
+% fill in the proper sender address, PO Box and phone number.  
+% 
+%    \begin{macrocode}
+\ifthenelse{\equal{\leil@faculty}{fwn}}{
+	\ifthenelse{\equal{\leil@lang}{english}}{
+		\renewcommand{\leil@facultyname}{Faculty of Science}}{
+		\renewcommand{\leil@facultyname}{Faculteit der Wiskunde en Natuurwetenschappen}}
+		\renewcommand{\leil@facultypobox}{\leil@facultypoboxname~9502\\\textsc{2300~ra}~Leiden}
+		\renewcommand{\leil@facultyphone}{(071)\,527\,4400}
+		\renewcommand{\leil@facultyaddress}{Einsteinweg~55}
+		}{}
+\ifthenelse{\equal{\leil@faculty}{law}}{
+	\ifthenelse{\equal{\leil@lang}{english}}{
+		\renewcommand{\leil@facultyname}{Faculty of Law}}{
+		\renewcommand{\leil@facultyname}{Faculteit der Rechtsgeleerdheid}}
+		\renewcommand{\leil@facultypobox}{\leil@facultypoboxname~9520\\\textsc{2300~ra}~Leiden}
+		\renewcommand{\leil@facultyphone}{(071)\,527\,7512}
+		\renewcommand{\leil@facultyaddress}{Steenschuur~25}
+		}{}
+\ifthenelse{\equal{\leil@faculty}{arch}}{
+	\ifthenelse{\equal{\leil@lang}{english}}{
+		\renewcommand{\leil@facultyname}{Faculty of Archeology}}{
+		\renewcommand{\leil@facultyname}{Faculteit der Archeologie}}
+		\renewcommand{\leil@facultypobox}{\leil@facultypoboxname~9514\\\textsc{2300~ra}~Leiden}
+		\renewcommand{\leil@facultyphone}{(071)\,527\,3500}
+		\renewcommand{\leil@facultyaddress}{Einsteinweg~55}
+		}{}
+\ifthenelse{\equal{\leil@faculty}{fgw}}{
+	\ifthenelse{\equal{\leil@lang}{english}}{
+		\renewcommand{\leil@facultyname}{Faculty of Humanities}}{
+		\renewcommand{\leil@facultyname}{Faculteit der Geesteswetenschappen}}
+		\renewcommand{\leil@facultypobox}{\leil@facultypoboxname~9514\\\textsc{2300~ra}~Leiden}
+		\renewcommand{\leil@facultyphone}{(071)\,527\,2300}
+		\renewcommand{\leil@facultyaddress}{Cleveringaplaats~1}		
+		}{}
+\ifthenelse{\equal{\leil@faculty}{fsw}}{
+	\ifthenelse{\equal{\leil@lang}{english}}{
+		\renewcommand{\leil@facultyname}{Faculty of Social and Behavioural Sciences}}{
+		\renewcommand{\leil@facultyname}{Faculteit der Sociale Wetenschappen}}
+		\renewcommand{\leil@facultypobox}{\leil@facultypoboxname~9555\\\textsc{2300~rb}~Leiden}
+		\renewcommand{\leil@facultyphone}{(071)\,527\,3600}
+		\renewcommand{\leil@facultyaddress}{Wassenaarseweg~52}
+		}{}
+\ifthenelse{\equal{\leil@faculty}{med}}{
+	\ifthenelse{\equal{\leil@lang}{english}}{
+		\renewcommand{\leil@facultyname}{Faculty of Medicine}}{
+		\renewcommand{\leil@facultyname}{Faculteit der Geneeskunde}}
+		\renewcommand{\leil@facultypobox}{\leil@facultypoboxname~9600\\\textsc{2300~rc}~Leiden}
+		\renewcommand{\leil@facultyphone}{(071)\,526\,9111}
+		\renewcommand{\leil@facultyaddress}{Einthovenweg~20}
+		}{}
+\ifthenelse{\equal{\leil@faculty}{gga}}{
+	\ifthenelse{\equal{\leil@lang}{english}}{
+		\renewcommand{\leil@facultyname}{Faculty of Governance and Global Affairs}}{
+		\renewcommand{\leil@facultyname}{Faculteit Governance and Global Affairs}}
+		\renewcommand{\leil@facultypobox}{\leil@facultypoboxname~13228\\\textsc{2501~ee}~Den~Haag}
+		\renewcommand{\leil@facultyphone}{(070)\,800\,9500}
+		\renewcommand{\leil@facultyaddress}{Turfmarkt~99}
+		}{}
+%    \end{macrocode}
+%
+% \subsection{University logo}
+% 
+%  The house style stipulates location of the logo (35pt from the top edge of the
+%  paper, 24 mm from the left edge of the paper). Size is not precisely prescribed. 
+%  The logo as available on the house style website has wide boundaries, so a little
+%  readjustment of the location is needed using |addvoffset| and |addhoffset|. 
+%  Size is not precisely prescribed, so we put the logo at the upper-left part of the
+%  layer. For documentation of the |\DeclareNewLayer| and |\AddLayerstoPageStyle| 
+%  commands, consult the |scrlayer=scrpage| documentation. 
+%
+% (to do: tight boundaries around logo, better sizing)
+%
+% \changes{v1.1}{2019/11/3}{Cropped the logo image and removed addoffset}
+%
+%  We only put the logo if the |briefdrager| option is not active. 
+%    \begin{macrocode}
+\ifthenelse{\boolean{leil@briefdrager}}{\relax}{
+	\RequirePackage{graphicx}
+	\DeclareNewLayer[
+  		background,
+  	  	align=tl,
+  	  	hoffset=24mm,
+  	  	voffset=35pt,
+  	  	addvoffset=22.35mm,% <- height of leiden-logo.pdf
+  	  	mode=picture,
+  	  	contents=\putUL{\includegraphics{leiden-logo}}
+	]{letterimage}
+	\AddLayersToPageStyle{@everystyle@}{letterimage}
+}
+%    \end{macrocode}
+%
+% \subsection{Letterhead}
+%
+%  At the top right of the page, the name of the faculty appears together with
+%  the name of the organisation unit of the sender. This appears on the first 
+%  page (pagestyle empty) and on followup pages. The first line here kills the
+%  letter head otherwise generate by the |scrlttr2| package. 
+% 
+%    \begin{macrocode}
+\setkomavar{firsthead}{}
+\DeclareNewLayer[
+  background,
+  height=56pt,
+  width=48mm,
+  voffset=74pt,
+  hoffset=144mm,
+  contents={%
+	\begin{raggedright}
+	\unskip\small\textbf{\leil@facultyname}\\
+	\ifdefined\leil@unit \leil@unit{} \fi
+	\end{raggedright}
+  }
+]{top.header}
+\AddLayersToPageStyle{scrheadings}{top.header}
+\AddLayersToPageStyle{empty}{top.header}
+%    \end{macrocode}
+%
+%  \subsection{Page numbers}
+%
+% Page numbers only appear on the second and later pages, at the left 
+% margin. Note that the standard "Pagina" label is replaced by "Blad". 
+% 
+%    \begin{macrocode}
+\defcaptionname{dutch}\pagename{Blad}
+\DeclareNewLayer[
+  background,
+  height=10mm,
+  width=22mm,
+  voffset=144pt,
+  hoffset=24mm,
+  contents={%
+ 	\pagename~\thepage/\letterlastpage
+  }
+]{margin.pagenumber}
+\AddLayersToPageStyle{scrheadings}{margin.pagenumber}
+%    \end{macrocode}
+%
+% 
+%    \begin{macrocode}
+%    \end{macrocode}
+%
+% \begin{macro}{foo}  
+%    \begin{macrocode}
+%    \end{macrocode}
+% \end{macro}
+% 
+%
+% 
+%    \begin{macrocode}
+%    \end{macrocode}
+%
+% \subsection{Letter Information}
+%
+% The user can/must set information about the letter in the preable of the 
+% document. Here we define these command. 
+%
+% \begin{macro}{\leil@number}
+%   This macro sets the |\leil@number| tag, that is to appear in the reference 
+%   line as the number of the letter. It defaults to a long dash (--) 
+%   and a warning if none is  specified by the user.   A user-level command is 
+%   also provided for to set this tag.
+%    \begin{macrocode}
+\newcommand{\leil@number}{-- \ClassWarning{LEIletter}{Please, specify 
+    the number of the letter using the \noexpand\leilnumber macro
+	in the preamble of your letter.}}
+\newcommand{\leilnumber}[1]{\renewcommand\leil@number{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leil@yourref}
+%   This macro sets the |\leil@yourref| tag, that is to appear in the reference 
+%   line as date of the letter to respond to. It defaults to a long dash (--) 
+%   and a warning if none is  specified by the user.   A user-level command is 
+%   also provided for to set this tag.
+%    \begin{macrocode}
+\newcommand{\leil@yourref}{-- \ClassWarning{LEIletter}{Please, specify 
+    the number of the letter using the \noexpand\leilyourref macro
+	in the preamble of your letter.}}
+\newcommand{\leilyourref}[1]{\renewcommand\leil@yourref{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leil@subject}
+%   This macro sets the |\leil@subject| tag, that is to appear in the reference 
+%   line as subject of the letter. It defaults to a long dash (--) 
+%   and a warning if none is  specified by the user.   A user-level command is 
+%   also provided for to set this tag.
+%    \begin{macrocode}
+\newcommand{\leil@subject}{-- \ClassWarning{LEIletter}{Please, specify 
+    the number of the letter using the \noexpand\leilsubject macro
+	in the preamble of your letter.}}
+\newcommand{\leilsubject}[1]{\renewcommand\leil@subject{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \subsection{Sender Information}
+%
+% First we set up the internal commands that can be specified by the user in 
+% a seperate LetterClassOption (|.lco|) file. See also the example
+% |medewerker.lco| file that is part of the distribution of this class. The 
+% name of the file to be loaded is specified as an author option in the 
+% \cs{documentclass} call, for instance 
+%
+% |\documentclass[author=medewerker]{LEIletter}| 
+% 
+% Note that it is also possible to overwrite the content specified in such a 
+% file by the same user command in the preamble of the document. 
+% 
+% \begin{macro}{\leil@title}
+%   This macro sets the |\leil@title| tag that will be used in the letter's
+%   signature. It defaults to empty (sender need not have a title)
+%   and a warning if none is specified by the user. A user-level command is 
+%   also provided for to set this tag.
+%    \begin{macrocode}
+\newcommand{\leil@title}{\ClassWarning{LEIletter}{Please, specify the title 
+	of the sender using the \noexpand\leiltitle macro in a separate .lco 
+	file or in the preamble of your letter.}}
+\newcommand{\leiltitle}[1]{\renewcommand\leil@title{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leil@firstname}
+%   This macro sets the |\leil@firstname| tag that will be used in the letter's
+%   signature. It defaults to empty (sender need not specify a first name)
+%   and a warning if none is specified by the user. A user-level command is 
+%   also provided for to set this tag.
+%    \begin{macrocode}
+\newcommand{\leil@firstname}{\ClassWarning{LEIletter}{Please, specify the 
+    first name of the sender using the \noexpand\leilfirstname macro in a 
+	separate .lco file or in the preamble of your letter.}}
+\newcommand{\leilfirstname}[1]{\renewcommand\leil@firstname{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%
+%
+% \begin{macro}{\leil@lastname}
+%   This macro sets the |\leil@firstname| tag that will be used in the letter's
+%   signature. It defaults to empty and a warning if none is specified by the user. 
+%   A user-level command is 
+%   also provided for to set this tag.
+%    \begin{macrocode}
+\newcommand{\leil@lastname}{\ClassWarning{LEIletter}{Please, specify the last 
+    name of the sender using the \noexpand\leillastname macro in a separate 
+	.lco file or in the preamble of your letter.}}
+\newcommand{\leillastname}[1]{\renewcommand\leil@lastname{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leil@email}
+%   This macro sets the |\leil@email| tag, that is currently not used. (This may
+%   change in later versions) It defaults to empty and a warning if none is 
+%   specified by the user.   A user-level command is 
+%   also provided for to set this tag.
+%    \begin{macrocode}
+\newcommand{\leil@email}{\ClassWarning{LEIletter}{Please, specify the email 
+    address of the sender using the \noexpand\leilemail macro in a separate 
+	.lco file or in the preamble of your letter.}}
+\newcommand{\leilemail}[1]{\renewcommand\leil@email{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leil@directphone}
+%   This macro sets the |\leil@directphone| tag, that is to appear in the reference 
+%   letter (direct-dial number or Doorkiesnr. in Dutch)
+%   It defaults to a long dash (--) and a warning if none is 
+%   specified by the user.   A user-level command is 
+%   also provided for to set this tag.
+%    \begin{macrocode}
+\newcommand{\leil@directphone}{-- \ClassWarning{LEIletter}{Please, specify 
+    the direct dial phone number of the sender using the 
+	\noexpand\leildirectphone macro in a separate .lco file or in the preamble 
+	of your letter.}}
+\newcommand{\leildirectphone}[1]{\renewcommand\leil@directphone{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leil@contact}
+%   This macro sets the |\leil@contact| tag, that is to appear in the reference 
+%   letter as the name of the assistant of the sender or the name of the secretariat 
+%   that belongs to the direct-dial phone number.  It defaults to a long dash (--) 
+%   and a warning if none is  specified by the user.   A user-level command is 
+%   also provided for to set this tag.
+%    \begin{macrocode}
+\newcommand{\leil@contact}{-- \ClassWarning{LEIletter}{Please, specify 
+    the direct contact person for the sender using the \noexpand\leilcontact 
+	macro in a separate .lco file or in the preamble of your letter.}}
+\newcommand{\leilcontact}[1]{\renewcommand\leil@contact{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leil@jobtitle}
+%   This macro sets the |\leil@jobtitle| tag, that is to appear in the signature of the 
+%   letter.  It defaults to empty and a warning if none is  specified by the user.  
+%    A user-level command is 
+%   also provided for to set this tag.
+%    \begin{macrocode}
+\newcommand{\leil@jobtitle}{-- \ClassWarning{LEIletter}{Please, specify the 
+    job title of the sender using the \noexpand\leiljobtitle macro in a
+    separate .lco file or in the preamble of your letter.}}
+\newcommand{\leiljobtitle}[1]{\renewcommand\leil@jobtitle{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leil@building}
+%   This macro sets the |\leil@building| tag, that is to appear in the sender address
+%    of the letter.  It defaults to empty and a warning if none is specified by the user.  
+%    A user-level command is 
+%   also provided for to set this tag.
+%    \begin{macrocode}
+\newcommand{\leil@building}{-- \ClassWarning{LEIletter}{Please, specify the 
+    building of the sender using the \noexpand\leilbuilding macro in a
+    separate .lco file or in the preamble of your letter.}}
+\newcommand{\leilbuilding}[1]{\renewcommand\leil@building{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leil@unit}
+%   This macro sets the |\leil@unit| tag, that is to appear in the page header
+%    of the letter.  It defaults to empty and a warning if none is specified by the user.  
+%    A user-level command is 
+%   also provided for to set this tag.
+%    \begin{macrocode}
+\newcommand{\leil@unit}{-- \ClassWarning{LEIletter}{Please, specify the 
+    building of the sender using the \noexpand\leilunit macro in a
+    separate .lco file or in the preamble of your letter.}}
+\newcommand{\leilunit}[1]{\renewcommand\leil@unit{#1}}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% We now proceed to process the file that specifies the tags, if any. 
+%    \begin{macrocode}
+\ifdefined\leil@author 
+	\LoadLetterOption{\leil@author} 
+	\setkomavar{signature}{\leil@title~\leil@firstname~\leil@lastname{}\\ \leil@jobtitle}	
+\fi
+%    \end{macrocode}
+%
+% \subsection{Sender address on first page}
+%
+% We put a layer with the sender information on the first page. Note that if the 
+% building is not specified, it is left out. Location of the layer is set by the 
+% house style (note that the vertical offset of 144 pt, not 140 pt, is neede to make 
+% the text align with the grid. )
+% 
+%    \begin{macrocode}
+\DeclareNewLayer[
+  background,
+  height=112pt,
+  width=48mm,
+  voffset=144pt,
+  hoffset=144mm,
+  contents={%
+	\small
+	\ifdefined\leil@building \leil@building \\ \fi
+    \leil@facultyaddress \\
+	\leil@facultypobox \\ 
+	Telefoon~\leil@facultyphone{}\\
+  }
+]{firstpage.senderinfo}
+\AddLayersToPageStyle{empty}{firstpage.senderinfo}
+%    \end{macrocode}
+%
+% \subsection{Reference line}
+% 
+% For the reference line, we first define tags for the labels, bilingually. 
+% Note that these can be changed by the user, therefor they do not have an 
+% |@| sign in them. 
+% 
+%    \begin{macrocode}
+\newcommand{\leilNumbername}{Nummer}
+\newcommand{\leilYourrefname}{Uw brief van}
+\newcommand{\leilSubjectname}{Onderwerp}
+\newcommand{\leilDatename}{Datum}
+\newcommand{\leilDialdirectname}{Doorkiesnr.}
+\newcommand{\leilContactname}{Contactpersoon}
+\ifthenelse{\equal{\leil@lang}{english}}{
+	\renewcommand{\leilNumbername}{Number}
+	\renewcommand{\leilYourrefname}{Your letter of}	
+	\renewcommand{\leilSubjectname}{Subject}
+	\renewcommand{\leilDatename}{Date}
+	\renewcommand{\leilDialdirectname}{Dial-direct Nr.}	
+	\renewcommand{\leilContactname}{Contact}	
+}{}
+%    \end{macrocode}
+%
+% We type out the reference line on the first page (note that |scrlttr2| sets the
+% page-style for the first page to empty), using dimensions from the house style definition.
+% On the left, there are three rows with the letter number, 
+% 
+%    \begin{macrocode}
+\DeclareNewLayer[
+  background,
+  height=70pt,
+  width=170mm,
+  voffset=270pt,
+  hoffset=24mm,
+  contents={%
+	\begingroup%\setlength\extrarowheight{-1pt}%
+	\unskip\begin{tabular}{@{}>{\small}p{24mm}@{}>{\small}p{48mm}@{}p{24mm}@{}>{\small}p{24mm}@{}>{\small}p{48mm}}
+	\textit{\leilNumbername} & \leil@number  & & \textit{\leilDatename} & \usekomavar{date} \\
+	\textit{\leilYourrefname} & \leil@yourref & & \textit{\leilDialdirectname} & \leil@directphone \\
+	\textit{\leilSubjectname} & \leil@subject{} & & \textit{\leilContactname} & \leil@contact \\
+	\end{tabular}
+	\endgroup
+  }
+]{firstpage.refline}
+\AddLayersToPageStyle{empty}{firstpage.refline}
+%    \end{macrocode}
+%
+%    \begin{macrocode}
+%</class>
+%    \end{macrocode}
+%    \begin{macrocode}
+%<*medewerker>
+%    \end{macrocode}
+%
+% \section{User Specific Information}
+% Information that is used for every letter, typically the name and details
+% of the sender of the letter, can be supplied in file |medewerker.lco|, which 
+% is loaded using the option |author=medewerker| at the \cs{documentclass} line. 
+% The following is a template for filling the file. Note that all these can also be 
+% specified in the preable or overwritten using \cs{renewcommand} calls.
+% \begin{macro}{\leiltitle}
+% The title should be written without spaces between titles as per LEI style guide. 
+% The titles, first name and last name are used to construct the signature under the letter.
+%    \begin{macrocode} 
+\leiltitle{prof.\,dr.} 
+%    \end{macrocode}
+% \end{macro}
+% 
+% 
+% \begin{macro}{\leilfirstname}
+% The fist name should be written with capitals and non-breaking space |~| between 
+% name and initials. No spaces between the initials if there are more than one. 
+%    \begin{macrocode} 
+\leilfirstname{Maria~E.}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leiltitle}
+% The last name should be written without capitalization of de/van/der/etc. Use non-breaking
+% spaces and/or non-breaking hyphens for multi-part names, as appropriate. 
+%    \begin{macrocode} 
+\leillastname{de~Werker} 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leilemail}
+% Specify the email address (currently not used but maybe in later versions.)
+%    \begin{macrocode} 
+\leilemail{m.e.dewerker@leidenuniv.nl} 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leildirectphone}
+% Specify the telephone number that is to appear in the reference letter (direct-dial number
+% or Doorkiesnr. in Dutch). Use a full space between (071) and a half-space after the first 
+% three digits, usually 527. Do not enter only the last four digits. 
+%    \begin{macrocode} 
+\leildirectphone{(071)~527\,0000} 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leilcontact}
+% Specify the name of the assistant of the sender or the name of the secretariat that 
+% belongs to the direct-dial phone number. 
+%    \begin{macrocode} 
+\leilcontact{Secretariaat Belangrijk} 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leiljobtitle}
+% Specify, if so desired, the job title, which is typeset on a separate line below the 
+% name in the signature. The jobtitle may be different in English and Dutch, so it may
+% be wise to specify it bilingually. 
+%    \begin{macrocode} 
+\iflanguage{english}{
+	\leiljobtitle{Professor of Relevant Subject}
+}{
+	\leiljobtitle{Professor in de Belangrijke Wetenschap}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leilbuilding}
+% Specify the location of the sender. This is not idential for all employees per 
+% faculty, so it must be supplied to go above the contact details of the faculty. 
+%    \begin{macrocode} 
+\iflanguage{english}{
+	\leilbuilding{Leyden Building}
+}{
+	\leilbuilding{Leids Gebouw}
+}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leilunit}
+% Specify the institute or depart (sub-unit of the faculty) of the sender. This is 
+% printed under name of the faculty at the top-right of every page. 
+%    \begin{macrocode} 
+\iflanguage{english}{
+	\leilunit{Institute of Relevance}
+}{
+	\leilunit{Belangrijk Instituut}
+}
+%    \end{macrocode}
+% \end{macro}
+% 
+% 
+%    \begin{macrocode}
+%</medewerker>
+%    \end{macrocode}
+%    \begin{macrocode}
+%<*example>
+%    \end{macrocode}
+%
+% \section{Minimal Example}
+% The following is a minimal example for a letter, using the |lipsum| package to 
+% generate dummy text, that shows how to use premable commands per letter. 
+%
+% The first line contains the call to the |LEIletter| document class, and specifies
+% options |dutch| (default) or |english|, specifies the author details to be loaded 
+% from |medewerker.lco| and the faculty that the sender belongs to. 
+%
+%    \begin{macrocode} 
+\documentclass[author=medewerker,faculty=fwn]{LEIletter}
+%    \end{macrocode}
+%
+%
+% \begin{macro}{\leilnumber}
+%   This macro sets the |\leil@number| tag that  will be used to specify the
+%   number or unique identifier of the letter (e.g. for archiving and referencing
+%   purposes). 
+%    \begin{macrocode} 
+\leilnumber{MEdW/123} 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leilyourref}
+%   This macro sets the |\leil@yourref| tag that  will be used to specify the
+%   date of the correspondence that the letter relates to. 
+%    \begin{macrocode} 
+\leilyourref{12 april 2019} 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+% \begin{macro}{\leilsubject}
+%   This macro sets the |\leil@subject| tag that later will be used in the
+%   reference line for the subject of the letter. 
+%    \begin{macrocode} 
+\leilsubject{Brieven Schrijven in Huisstijl met Latex.} 
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%    \begin{macrocode} 
+\usepackage{pagegrid}
+\pagegridsetup{top-left,step=14pt,arrows=false}
+\usepackage{lipsum}
+\begin{document}
+%    \end{macrocode}
+%
+%
+% \begin{environment}{letter}
+%   This macro indicates the start of the letter and typesets the first page.
+%   Its argument is the addressee of the letter, with \cs{newline} to jump to
+%   a new line in the address.  
+%    \begin{macrocode} 
+\begin{letter}{%
+	College van Bestuur\newline%
+    Universiteit van Leiden\newline%
+	Rapenburg 70, Leiden
+}
+%    \end{macrocode}
+% \end{environment}
+%
+%
+% \begin{macro}{\opening}
+%   This macro sets the opening line of the letter.
+%    \begin{macrocode} 
+\opening{Geacht College,}
+%    \end{macrocode}
+% \end{macro}
+%    \begin{macrocode}
+\lipsum[1-10]
+%    \end{macrocode}
+% \begin{macro}{\opening}
+%   This macro sets the closing line of the letter and the name of the sender.
+%    \begin{macrocode} 
+\closing{Hoogachtend,}
+%    \end{macrocode}
+% \end{macro}
+%
+%
+%    \begin{macrocode}
+\end{letter}
+\end{document}
+%    \end{macrocode}
+%    \begin{macrocode}
+%</example>
+%    \end{macrocode}
+%    \begin{macrocode}
+%<*gridtest>
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+\documentclass[author=medewerker,faculty=fwn]{LEIletter}
+\leilnumber{MEdW/123}
+\leilyourref{12 april 2019}
+\leilsubject{Brieven Schrijven in Huisstijl met Latex.}
+\usepackage{tikz}
+\usepackage{atbegshi}[2009/12/02]
+\AtBeginShipout{%
+    \AtBeginShipoutUpperLeft{%
+      \put(0,0){%
+        \makebox(0,0)[lt]{%
+          \begin{tikzpicture}[%
+          ]%
+            \useasboundingbox
+              (0mm,\paperheight) rectangle (0mm,\paperheight);%
+            \draw[%
+              style={yshift=\paperheight,yscale=-1},%
+              step=14pt,%
+              style=help lines,%
+              ultra thin%
+            ] (0mm,0mm) grid [xstep=24mm,ystep=14pt] (\paperwidth,\paperheight); 
+          \end{tikzpicture}%
+        }%
+      }%
+    }%
+}
+\usepackage{lipsum}
+\usepackage{booktabs}
+\begin{document}
+\begin{letter}{College van Bestuur\newline%
+               Universiteit van Leiden\newline%
+               Rapenburg 70, Leiden
+               }
+\opening{Geacht College,}
+\lipsum[1-2]
+\section*{Hoofdzaak}
+\lipsum[3]
+\subsection*{Bijzaak}
+\lipsum[4]
+\begin{itemize}
+	\item foo
+	\item bar
+\end{itemize}
+\lipsum[6]
+
+\begin{gridfltenv}
+\begin{tabular}{@{}llr@{}} \toprule
+\multicolumn{2}{c}{Item} \\ % \cmidrule(r){1-2}
+Animal & Description & Price (\$)\\ \midrule
+Gnat  & per gram  & 13.65 \\
+      & each      & 0.01 \\
+Gnu   & stuffed   & 92.50 \\
+Emu   & stuffed   & 33.33 \\
+Armadillo & frozen & 8.99 \\ \bottomrule
+\end{tabular}
+\end{gridfltenv}
+
+\lipsum[6]
+\begin{enumerate}
+	\item foo
+	\item bar
+\end{enumerate}
+\lipsum[7]
+\begin{gridenv}
+	\begin{equation}
+		\sqrt{x^2+y^2}=z
+	\end{equation}
+\end{gridenv}	
+\lipsum[8]
+\closing{Best regards,}
+\end{letter}
+\end{document}
+%    \end{macrocode}
+%
+%
+%    \begin{macrocode}
+%</gridtest>
+%    \end{macrocode}
+%\Finale
