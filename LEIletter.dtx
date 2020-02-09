@@ -477,17 +477,25 @@ and the derived files           LEIletter.ins,
 % differently). We need to set |refvpos| to make sure the text starts at the 
 % correct height on the first page. 
 %
+% (NB: we use here the older |\@setplength| with the at-sign for compatiblity with
+% older versions of KOMA-script.) Perhaps, at some point make this something like 
+% \begin{verbatim}
+%    \ifpackagelater{scrlttr2}{2019/2/1}{
+%           \newcommand*{\setplength}{\@setplength}
+%    }{}
+% \end{verbatim}
+%
 %    \begin{macrocode}
-\setplength{toaddrhpos}{24mm}
-\setplength{toaddrvpos}{146pt}
-\setplength{toaddrwidth}{72mm}
-\setplength{toaddrheight}{77pt}
-\setplength{backaddrheight}{0pt}
-\setplength{subjectaftervskip}{0pt}
-\setplength{subjectbeforevskip}{0pt}
-\setplength{refaftervskip}{0pt}
-\setplength{sigbeforevskip}{3.0\baselineskip}
-\setplength{refvpos}{350pt}
+\@setplength{toaddrhpos}{24mm}
+\@setplength{toaddrvpos}{146pt}
+\@setplength{toaddrwidth}{72mm}
+\@setplength{toaddrheight}{77pt}
+\@setplength{backaddrheight}{0pt}
+\@setplength{subjectaftervskip}{0pt}
+\@setplength{subjectbeforevskip}{0pt}
+\@setplength{refaftervskip}{0pt}
+\@setplength{sigbeforevskip}{3.0\baselineskip}
+\@setplength{refvpos}{350pt}
 \setlength\parindent{0pt}
 %    \end{macrocode}
 %
