@@ -1,0 +1,38 @@
+LEIletter --- letter class for Leiden University
+E-mail: m.t.kreutzer@science.leidenuniv.nl
+Released under the LaTeX Project Public License v1.3c or later
+See http://www.latex-project.org/lppl.txt
+
+
+In its communications, Leiden University aims to create a clear 
+and recognisable brand, which is why it is important that our house 
+style is applied consistently. The current packages allows for 
+letters that comply with the standard set out at 
+https://huisstijl.leidenuniv.nl/nl/corporate/briefpapier-zetaanwijzingen/
+
+This work may be distributed and/or modified under the
+conditions of the LaTeX Project Public License (LPPL), either
+version 1.3c of this license or (at your option) any later
+version.  The latest version of this license is in the file:
+
+	http://www.latex-project.org/lppl.txt
+
+The Leiden University logo is licensed under the Creative Commons 
+Attribution-Share Alike 3.0 Unported license, as explained at 
+
+	https://commons.wikimedia.org/wiki/File:UniversiteitLeidenLogo.svg
+	
+
+This work is "maintained" (as per LPPL maintenance status) by
+Michiel Kreutzer.
+
+This work consists of the file  LEIletter.dtx and
+                                leiden-logo.pdf
+and the derived files           LEIletter.ins,
+                                LEIletter.pdf,
+                                LEIletter.cls,
+                                leiletter-voorbeeld.tex and  
+                                medewerker.lco
+
+The derived files are readily extracted by running (pdf)latex on the dtx file,
+which also creates the documentation. 
